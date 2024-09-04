@@ -6,11 +6,12 @@ import PackageDescription
 /// previous versions of swift before 6.0 have issues
 /// compiling swift macros, so galah is only supported
 /// for swift 6.0+.
+/**
 var galahDeps: [Package.Dependency] = []
 var galahSettings: [SwiftSetting] = [.interoperabilityMode(.Cxx)]
 var galahTargetDeps: [Target.Dependency] = [.target(name: "PixarUSD")]
 _ = Galah()
-
+**/
 let package = Package(
   name: "SwiftUSD",
   platforms: [
@@ -262,7 +263,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0"),
     .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.0.0"),
     .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
-  ] + galahDeps,
+  ],
   targets: [
     .target(
       name: "pxr",
@@ -1520,7 +1521,7 @@ let package = Package(
         .interoperabilityMode(.Cxx),
       ]
     ),
-
+/**
     .executableTarget(
       name: "Examples",
       dependencies: galahTargetDeps,
@@ -1529,7 +1530,7 @@ let package = Package(
       ],
       swiftSettings: galahSettings
     ),
-
+*/
     .testTarget(
       name: "PixarUSDTests",
       dependencies: [
@@ -1552,6 +1553,7 @@ let package = Package(
  * Just to tidy up the package configuration above,
  * we define some helper functions and types below.
  * ------------------------------------------------ */
+ /**
 enum Arch
 {
   /** OS platforms, grouped by family. */
@@ -1585,11 +1587,11 @@ enum Arch
         case .linwin: [.linux, .android, .openbsd, .windows]
       }
     }
-
+/**
     public static func dependency(_ dependency: Dependency) -> [Target.Dependency]
     {
-      #if os(macOS) || os(visionOS) || os(iOS) || os(tvOS) || os(watchOS)
-        [dependency.product(for: .apple)].compactMap { $0 }
+     // #if os(macOS) || os(visionOS) || os(iOS) || os(tvOS) || os(watchOS)
+       // [dependency.product(for: .apple)].compactMap { $0 }
       #elseif os(Linux) || os(Android) || os(OpenBSD) || os(FreeBSD)
         [dependency.product(for: .linux)].compactMap { $0 }
       #elseif os(Windows) || os(Cygwin)
@@ -1600,7 +1602,6 @@ enum Arch
         []
       #endif
     }
-
     enum Dependency
     {
       case boost
@@ -1618,7 +1619,7 @@ enum Arch
         }
       }
     }
-
+**/ */
     enum Python
     {
       public static func targets(enabled: Bool = false) -> [Target]
@@ -2488,9 +2489,9 @@ enum Arch
         }
       }
     }
-  }
-}
 
+
+/**
 struct Galah
 {
   /**
@@ -2530,3 +2531,4 @@ struct Galah
     galahTargetDeps = [.target(name: "PixarUSD"), .product(name: "GalahInterpreter", package: "galah")]
   }
 }
+**/
